@@ -1,2 +1,2 @@
 # Log-Maker
-Slice usefull information from a file and create new one
+Slices usefull information from a file and creates new one
