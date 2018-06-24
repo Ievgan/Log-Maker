@@ -1,4 +1,4 @@
-with open('token_fail.dat', 'r') as infile:
+with open('Test_file_4f.dat', 'r') as infile:
     loglist = list(enumerate(infile, start=1))
 
 #The function below looks through token.dat file and creates a unique filename
@@ -27,6 +27,7 @@ def main(loglist):
             sn_sts = True
             board_count += 1
             main_data['SN'] = 'S' + sn
+            # print(main_data['SN'])
 
         elif line.lstrip().startswith('(USER:  START TIME :'):
             strtpoint = line.index('TIME :')
@@ -34,6 +35,7 @@ def main(loglist):
             date_indx2 = date_indx1 + 19
             # slicerange = slice(date_indx1, date_indx2)
             main_data['Start Time'] ='[' + str(line[date_indx1:date_indx2])
+            # print(main_data['Start Time'])
 
         elif line.lstrip().startswith('(STEP:'):
             #print(num)
@@ -46,9 +48,11 @@ def main(loglist):
         elif line.lstrip().startswith('(USER:  RESULT :'):
             templs = ''.join(char for char in line if char not in '():').split()
             indx = templs.index('RESULT') + 1
+            # print(templs)
             rslt = str(templs[indx])
             rslt_sts = True
             main_data['Status'] = 'T' + rslt[0]
+            # print(main_data['Status'])
 
         elif line.lstrip().startswith('(USER:  STOP TIME :'):
             # evaluate date-time startpoint
@@ -72,12 +76,14 @@ def main(loglist):
             slicerange = slice(date_indx1, time_indx2)
             main_data['Stop Time'] = ']' + str(line[slicerange])
             stptime_sts = True
+            # print(main_data['Stop Time'])
 
         if sn_sts & rslt_sts & stptime_sts:
             filename = rslt + '_' + sn + '_' + str(board_count) + '_' + stptime
             main_data['File Name'] = filename
+            # print(main_data['File Name'], end='\n')
             makeTarfile(main_data)
-            #print(main_data, sep='\n\n', end='\n', file=outfile)
+            # print(main_data, sep='\n\n', end='\n')
             #print(sn, rslt, stptime, filename, sep='\n', end='\n\n', file=outfile)
             main_data['Fails'] = []
             main_data['F_qnt'] = 0
@@ -135,7 +141,7 @@ def failureFinder(ls, linenum, data):
                 #fail_list += [frmt_line]
 
     fail_list = [fail_name, '> ' + fail_line]
-    #print(fail_list)
+    # print(fail_list)
     data['Fails'].append(fail_list)
     data['F_qnt'] += 1
     #print(data['F_qnt'])
