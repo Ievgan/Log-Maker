@@ -1,9 +1,9 @@
-with open('new.dat', 'r') as infile:
+with open('token_fail.dat', 'r') as infile:
     loglist = list(enumerate(infile, start=1))
 
 #The function below looks through token.dat file and creates a unique filename
 def main(loglist):
-    main_data = {'Client': 'CHoneywell',
+    main_data = {'Client': 'CMyCompany',
                  'Tester': 'NSpectrum',
                  'Process': 'PICT',
                  'Site': 'p20',
